@@ -1,0 +1,20 @@
+version: '2.1'
+
+services:
+  app1:
+    build: app1/.
+    depends_on:
+      - app2
+    links:
+      - app2
+    ports:
+      - '3000'
+    environment:
+      - APP2=http://app2:3000
+      - VIRTUAL_HOST=app1
+      - VIRTUAL_PORT=3000
+    command: node index.js
+
+  app2:
+    build: app2/.
+    command: node index.js
